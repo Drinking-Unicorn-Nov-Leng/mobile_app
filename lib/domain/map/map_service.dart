@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobile_app/domain/models/place.dart';
+import 'package:mobile_app/ui/map/cubit/map_cubit.dart';
+import 'package:provider/provider.dart';
 
 class MapService {
   List<Place> places = [
-    Place(),
+    Place.getBlank(),
   ];
 
   late GoogleMapController _controller;
@@ -32,14 +34,14 @@ class MapService {
     );
   }
 
-  Set<Marker> getMarkers(context) {
+  Set<Marker> getMarkers(BuildContext context) {
     return places
         .map(
           (e) => Marker(
-            markerId: MarkerId(
-              DateTime.now().toString(),
-            ),
-            onTap: () {},
+            markerId: MarkerId(e.id),
+            onTap: () {
+              context.read<MapCubit>().markerIsTouched(e.id);
+            },
             icon: BitmapDescriptor.defaultMarker,
             position: LatLng(46.20145993657801, 6.145976348541012),
           ),

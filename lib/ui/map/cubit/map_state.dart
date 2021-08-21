@@ -6,7 +6,7 @@ abstract class MapState {}
 class MapInitial extends MapState {}
 
 class MapMarkerIsTouched extends MapState {
-  Place place;
+  String placeId;
 
-  MapMarkerIsTouched(this.place);
+  MapMarkerIsTouched(this.placeId);
 }

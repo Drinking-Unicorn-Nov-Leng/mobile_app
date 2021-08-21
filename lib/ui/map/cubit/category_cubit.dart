@@ -1,50 +1,50 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:mobile_app/domain/models/filter.dart';
+import 'package:mobile_app/domain/models/category.dart';
+import 'package:mobile_app/ui/map/cubit/category_state.dart';
 
-part 'filter_state.dart';
+class CategoryCubit extends Cubit<CategoryState> {
+  List<Category> Categorys;
 
-class FilterCubit extends Cubit<FilterState> {
-  List<Filter> filters;
-
-  FilterCubit({List<Filter>? filters})
-      : this.filters = filters ??
+  CategoryCubit({List<Category>? Categorys})
+      : this.Categorys = Categorys ??
             [
-              Filter(
+              Category(
                 iconPath: 'assets/epic_icon.svg',
                 name: 'Былины',
                 isActive: true,
               ),
-              Filter(
+              Category(
                 iconPath: 'assets/monument_icon.svg',
                 name: 'Памятники',
                 isActive: false,
               ),
-              Filter(
+              Category(
                 iconPath: 'assets/museum_icon.svg',
                 name: 'Музеи',
                 isActive: true,
               ),
-              Filter(
+              Category(
                 iconPath: 'assets/cafe_icon.svg',
                 name: 'Где покушать',
                 isActive: true,
               ),
-              Filter(
+              Category(
                 iconPath: 'assets/souvenirs_icon.svg',
                 name: 'Сувениры',
                 isActive: true,
               ),
-              Filter(
+              Category(
                 iconPath: 'assets/travelers_icon.svg',
                 name: 'Пользователи',
                 isActive: true,
               ),
             ],
-        super(FilterInitial());
+        super(CategoryInitial());
 
-  void updateFilter(Filter filter) {
-    int index = filters.indexWhere((element) => filter.name == element.name);
-    filters[index] = filter;
+  void updateCategory(Category Category) {
+    int index =
+        Categorys.indexWhere((element) => Category.name == element.name);
+    Categorys[index] = Category;
   }
 }

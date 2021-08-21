@@ -13,6 +13,10 @@ class MapCubit extends Cubit<MapState> {
   ) : super(MapInitial());
 
   void markerIsTouched(String placeId) {
-    emit(MapMarkerIsTouched(Place()));
+    emit(MapMarkerIsTouched(placeId));
+  }
+
+  void markerIsUntouched() {
+    emit(MapInitial());
   }
 }

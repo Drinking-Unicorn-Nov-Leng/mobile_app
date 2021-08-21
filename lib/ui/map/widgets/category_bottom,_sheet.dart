@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/domain/models/filter.dart';
-import 'package:mobile_app/ui/map/cubit/filter_cubit.dart';
-import 'package:mobile_app/ui/map/widgets/filter_item.dart';
+import 'package:mobile_app/ui/map/cubit/category_cubit.dart';
+import 'package:mobile_app/ui/map/widgets/category_item.dart';
 import 'package:mobile_app/utils/responsive_size.dart';
 import 'package:provider/provider.dart';
 
-showFilters(BuildContext context) {
+showCategorys(BuildContext context) {
   showModalBottomSheet(
     isScrollControlled: true,
     context: context,
@@ -63,8 +62,8 @@ class BottomSheetView extends StatelessWidget {
           ),
           Column(
             children: context
-                .watch<FilterCubit>()
-                .filters
+                .watch<CategoryCubit>()
+                .Categorys
                 .map(
                   (e) => Column(
                     children: [
@@ -72,9 +71,9 @@ class BottomSheetView extends StatelessWidget {
                         height: 1,
                         color: Color(0xffE6E6EB),
                       ),
-                      Filteritem(
+                      Categoryitem(
                         e,
-                        (val) => context.read<FilterCubit>().updateFilter(
+                        (val) => context.read<CategoryCubit>().updateCategory(
                               e..isActive = val,
                             ),
                       ),

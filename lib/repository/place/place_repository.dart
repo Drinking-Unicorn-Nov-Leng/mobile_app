@@ -21,7 +21,6 @@ class PlaceRepository {
   Future<Place> getPlace(String id) async {
     final response = await client.get(id);
     return parser.transform(response.data);
-    throw UnimplementedError();
   }
 
   Future<void> createPlace(Place place) async {

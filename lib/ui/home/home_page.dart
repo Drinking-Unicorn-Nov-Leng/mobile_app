@@ -5,6 +5,7 @@ import 'package:mobile_app/ui/home/cubit/navigator_cubit.dart';
 import 'package:mobile_app/ui/home/widgets/flying_navigation_bar.dart';
 import 'package:mobile_app/ui/map/cubit/map_cubit.dart';
 import 'package:mobile_app/ui/map/map_page.dart';
+import 'package:mobile_app/ui/place/place_bottom_sheet.dart';
 import 'package:mobile_app/ui/profile/profile_page.dart';
 import 'package:mobile_app/ui/routes/routes_page.dart';
 import 'package:mobile_app/utils/config.dart';
@@ -73,28 +74,11 @@ class _HomePageViewState extends State<HomePageView> {
                 },
               ),
             ),
-            BlocBuilder<MapCubit, MapState>(
+            BlocConsumer<MapCubit, MapState>(
+              listener: (context, state) {},
               builder: (context, state) {
                 if (state is MapMarkerIsTouched) {
-                  return SizedBox.expand(
-                    child: DraggableScrollableSheet(
-                      builder: (BuildContext context,
-                          ScrollController scrollController) {
-                        return Container(
-                          color: Colors.blue[100],
-                          child: ListView.builder(
-                            controller: scrollController,
-                            itemCount: 1,
-                            itemBuilder: (BuildContext context, int index) {
-                              return ListTile(
-                                title: Text('Item ${state.place}'),
-                              );
-                            },
-                          ),
-                        );
-                      },
-                    ),
-                  );
+                  return PlaceBottomSheet();
                 }
                 return Container();
               },

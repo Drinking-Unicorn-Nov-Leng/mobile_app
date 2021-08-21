@@ -1,25 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mobile_app/domain/models/filter.dart';
-import 'package:mobile_app/ui/map/cubit/filter_cubit.dart';
+import 'package:mobile_app/domain/models/category.dart';
 import 'package:mobile_app/utils/responsive_size.dart';
-import 'package:provider/provider.dart';
 
-class Filteritem extends StatefulWidget {
-  final Filter filter;
+class Categoryitem extends StatefulWidget {
+  final Category category;
   final Function(bool) onChanged;
 
-  const Filteritem(
-    this.filter,
+  const Categoryitem(
+    this.category,
     this.onChanged,
   );
 
   @override
-  _FilteritemState createState() => _FilteritemState();
+  _CategoryitemState createState() => _CategoryitemState();
 }
 
-class _FilteritemState extends State<Filteritem> {
+class _CategoryitemState extends State<Categoryitem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,13 +32,13 @@ class _FilteritemState extends State<Filteritem> {
             width: 11.width,
           ),
           SvgPicture.asset(
-            widget.filter.iconPath,
+            widget.category.iconPath,
           ),
           SizedBox(
             width: 10.width,
           ),
           Text(
-            widget.filter.name,
+            widget.category.name,
             style: TextStyle(
               fontSize: 16,
             ),
@@ -48,11 +46,11 @@ class _FilteritemState extends State<Filteritem> {
           Spacer(),
           CupertinoSwitch(
               activeColor: Color(0xffF6C648),
-              value: widget.filter.isActive,
+              value: widget.category.isActive,
               onChanged: (val) {
                 widget.onChanged(val);
                 setState(() {
-                  widget.filter.isActive = val;
+                  widget.category.isActive = val;
                 });
                 ;
               }),
