@@ -67,7 +67,7 @@ class TourMapService with ChangeNotifier {
   CameraPosition initialCameraPosition() {
     return CameraPosition(
       target: LatLng(58.534363, 31.261617),
-      zoom: 10,
+      zoom: 6,
     );
   }
 

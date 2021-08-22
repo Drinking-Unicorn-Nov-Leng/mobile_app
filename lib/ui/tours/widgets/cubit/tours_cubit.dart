@@ -25,7 +25,7 @@ class ToursCubit extends Cubit<ToursState> {
           avatar: i['avatar'] ??
               'https://www.bileter.ru/data/shows_logos/S/E/ajpQZ-FT95GjdzUYklpQ7f6X26N2baGl.jpg',
           description: i['description'],
-          id: i['id'],
+          id: i['id'].toString(),
           name: i['name'],
           places: places,
         ),
