@@ -82,20 +82,27 @@ class MapPageView extends StatelessWidget {
       ),
     ];
     mapService.context = context;
-    return Stack(
-      children: [
-        GoogleMap(
-          onMapCreated: mapService.onMapCreated,
-          zoomControlsEnabled: false,
-          mapToolbarEnabled: false,
-          onTap: (q) {
-            context.read<MapCubit>().markerIsUntouched();
-          },
-          markers: mapService.markers,
-          initialCameraPosition: mapService.initialCameraPosition(),
-        ),
-        ...buttons,
-      ],
+    return Opacity(
+      opacity: mapService.isLoading ? 0.5 : 1,
+      child: Stack(
+        children: [
+          GoogleMap(
+            onMapCreated: mapService.onMapCreated,
+            zoomControlsEnabled: false,
+            mapToolbarEnabled: false,
+            onTap: (q) {
+              context.read<MapCubit>().markerIsUntouched();
+            },
+            markers: mapService.markers,
+            initialCameraPosition: mapService.initialCameraPosition(),
+          ),
+          ...buttons,
+          if (mapService.isLoading)
+            Center(
+              child: CircularProgressIndicator(),
+            ),
+        ],
+      ),
     );
   }
 }

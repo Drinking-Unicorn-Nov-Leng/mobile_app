@@ -15,6 +15,8 @@ class MapService with ChangeNotifier {
 
   PlaceRepository placeRepository;
 
+  bool isLoading = true;
+
   BuildContext context;
 
   MapService(this.context, this.placeRepository) {
@@ -23,6 +25,7 @@ class MapService with ChangeNotifier {
 
   Future<void> _fetchPlaces() async {
     places = await placeRepository.getAllPlaces();
+    isLoading = false;
     setUpMarkers();
   }
 
