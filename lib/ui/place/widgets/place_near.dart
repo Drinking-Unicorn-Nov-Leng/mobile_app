@@ -9,10 +9,10 @@ class PlaceNear extends StatelessWidget {
   final places = [
     Place.getBlank()
       ..name = 'Дома народного творчества'
-      ..shortAdress = 'с. Мараева',
+      ..city = 'с. Мараева',
     Place.getBlank()
       ..name = 'КРАЕВЕДЧЕСКИЙ МУЗЕЙ «ЗЕМЛИ БРОННИЦКОЙ»'
-      ..shortAdress = 'c. Бронница',
+      ..city = 'c. Бронница',
   ];
 
   @override
@@ -97,7 +97,7 @@ class PlaceNear extends StatelessWidget {
                                       color: Color(0xff8A8A93),
                                     ),
                                     Text(
-                                      e.shortAdress,
+                                      e.city,
                                       style: TextStyle(
                                         color: Color(0xff8A8A93),
                                         fontSize: 13.height,

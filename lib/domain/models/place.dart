@@ -9,7 +9,7 @@ class Place {
   String description;
   String phone;
   String site;
-  String shortAdress;
+  String city;
   String adress;
   LatLng location;
   Category category;
@@ -29,7 +29,7 @@ class Place {
     required this.photoUrls,
     required this.shortDescription,
     required this.site,
-    required this.shortAdress,
+    required this.city,
     required this.category,
   });
 
@@ -63,7 +63,7 @@ class Place {
         shortDescription =
             "Уникальный железнодорожный музей под открытым небом на территории действующей Тёсовской УЖД расположен в посёлке Тёсово-Нетыльский в 1 часеезды от Великого Новгорода.",
         site = "https://www.tesovouzd.ru",
-        shortAdress = "Тёсово-Нетыльский",
+        city = "Тёсово-Нетыльский",
         category = Category(
           iconPath: 'assets/monument_icon.svg',
           name: 'Музей',

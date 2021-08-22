@@ -15,8 +15,10 @@ class MapCubit extends Cubit<MapState> {
   ) : super(MapInitial());
 
   void markerIsTouched(String placeId) {
+    final place =
+        mapService.places.firstWhere((element) => element.id == placeId);
     this.placeId = placeId;
-    emit(MapMarkerIsTouched(placeId));
+    emit(MapMarkerIsTouched(place));
   }
 
   void markerIsUntouched() {

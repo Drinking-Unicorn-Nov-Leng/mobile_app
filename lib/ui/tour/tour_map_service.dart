@@ -5,34 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobile_app/domain/models/place.dart';
-import 'package:mobile_app/repository/place/place_repository.dart';
 import 'package:mobile_app/ui/map/cubit/map_cubit.dart';
 import 'package:provider/provider.dart';
 import 'package:mobile_app/utils/responsive_size.dart';
 
-class MapService with ChangeNotifier {
-  List<Place> places = [];
-
-  PlaceRepository placeRepository;
+class TourMapService with ChangeNotifier {
+  List<Place> places;
 
   BuildContext context;
 
-  MapService(this.context, this.placeRepository) {
+  TourMapService(
+    this.places,
+    this.context,
+  ) {
     setUpMarkers();
-    _fetchPlaces();
   }
 
-  Future<void> _fetchPlaces() async {
-    places = await placeRepository.getAllPlaces();
-  }
-
-  late BitmapDescriptor souvenirsDisable;
   late BitmapDescriptor souvenirsActive;
-
-  late BitmapDescriptor museumDisable;
   late BitmapDescriptor museumActive;
-
-  late BitmapDescriptor monumentDisable;
   late BitmapDescriptor monumentActive;
 
   Set<Marker> markers = {};
@@ -63,37 +53,22 @@ class MapService with ChangeNotifier {
       await _convertAssetToBytes(
           'assets/souvenirs_map_active_icon.png', 100.width.toInt()),
     );
-    souvenirsDisable = BitmapDescriptor.fromBytes(
-      await _convertAssetToBytes(
-          'assets/souvenirs_map_disabled_icon.png', 100.width.toInt()),
-    );
 
     museumActive = BitmapDescriptor.fromBytes(
       await _convertAssetToBytes(
           'assets/museum_map_active_icon.png', 100.width.toInt()),
-    );
-    museumDisable = BitmapDescriptor.fromBytes(
-      await _convertAssetToBytes(
-          'assets/museum_map_disabled_icon.png', 100.width.toInt()),
     );
 
     monumentActive = BitmapDescriptor.fromBytes(
       await _convertAssetToBytes(
           'assets/monument_map_active_icon.png', 100.width.toInt()),
     );
-    monumentDisable = BitmapDescriptor.fromBytes(
-      await _convertAssetToBytes(
-          'assets/monument_map_disabled_icon.png', 100.width.toInt()),
-    );
 
     markers = places
         .map(
           (e) => Marker(
             markerId: MarkerId(e.id),
-            onTap: () {
-              setUpMarkers();
-              context.read<MapCubit>().markerIsTouched(e.id);
-            },
+            onTap: () {},
             icon: _getIconFromPlace(e),
             position: e.location,
           ),
@@ -103,18 +78,12 @@ class MapService with ChangeNotifier {
   }
 
   BitmapDescriptor _getIconFromPlace(Place e) {
-    var placeId;
-    try {
-      placeId = context.read<MapCubit>().placeId;
-    } on Exception catch (e) {
-      placeId = -1;
-    }
     if (e.category.name == 'Сувениры') {
-      return placeId == e.id ? souvenirsActive : souvenirsDisable;
+      return souvenirsActive;
     } else if (e.category.name == 'Памятники') {
-      return placeId == e.id ? monumentActive : monumentDisable;
+      return monumentActive;
     }
-    return placeId == e.id ? museumActive : museumDisable;
+    return museumActive;
   }
 
   Future<Uint8List> _convertAssetToBytes(String path, int width) async {

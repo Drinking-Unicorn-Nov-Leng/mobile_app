@@ -14,17 +14,13 @@ class PlaceRepository {
 
   Future<List<Place>> getAllPlaces() async {
     final response = await client.get(':4050/map/Place/all/full-data');
-    // return response.data.map((e) => parser.transform(e)).toList();
-    throw UnimplementedError();
-  }
-
-  Future<Place> getPlace(String id) async {
-    throw UnimplementedError();
-    final response = await client.get(id);
-    // return parser.transform(response.data);
-  }
-
-  Future<void> createPlace(Place place) async {
-    throw UnimplementedError();
+    final places = <Place>[];
+    for (var item in response.data) {
+      if (item['coordinates']['lat'] > 100 || item['coordinates']['lat'] == 0) {
+        continue;
+      }
+      places.add(await parser.transform(item));
+    }
+    return places;
   }
 }

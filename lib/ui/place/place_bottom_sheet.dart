@@ -11,8 +11,8 @@ import 'package:mobile_app/utils/responsive_size.dart';
 import 'widgets/place_photos.dart';
 
 class PlaceBottomSheet extends StatelessWidget {
-  final place = Place.getBlank();
-  PlaceBottomSheet({Key? key}) : super(key: key);
+  Place place;
+  PlaceBottomSheet(this.place);
 
   @override
   Widget build(BuildContext context) {

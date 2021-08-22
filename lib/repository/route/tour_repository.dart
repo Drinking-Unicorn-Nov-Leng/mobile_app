@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:mobile_app/domain/models/route.dart';
+import 'package:mobile_app/domain/models/tour.dart';
 import 'package:mobile_app/repository/common/parser.dart';
 
 class RouteRepository {
@@ -11,15 +11,15 @@ class RouteRepository {
     required this.parser,
   });
 
-  Future<List<Route>> getAllRoutes() async {
+  Future<List<Tour>> getAllRoutes() async {
     throw UnimplementedError();
   }
 
-  Future<Route> getRoute(String id) async {
+  Future<Tour> getRoute(String id) async {
     throw UnimplementedError();
   }
 
-  Future<List<Route>> createRoute(Route route) async {
+  Future<List<Tour>> createRoute(Tour route) async {
     throw UnimplementedError();
   }
 }

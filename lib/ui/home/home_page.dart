@@ -8,7 +8,7 @@ import 'package:mobile_app/ui/map/cubit/map_cubit.dart';
 import 'package:mobile_app/ui/map/map_page.dart';
 import 'package:mobile_app/ui/place/place_bottom_sheet.dart';
 import 'package:mobile_app/ui/profile/profile_page.dart';
-import 'package:mobile_app/ui/routes/routes_page.dart';
+import 'package:mobile_app/ui/tours/tours_page.dart';
 import 'package:mobile_app/utils/config.dart';
 import 'package:mobile_app/utils/responsive_size.dart';
 
@@ -59,7 +59,7 @@ class _HomePageViewState extends State<HomePageView> {
             BlocBuilder<NavigatorCubit, NavigatorStates>(
               builder: (context, state) {
                 if (state == NavigatorStates.Routes) {
-                  return RoutesPage();
+                  return ToursPage();
                 } else if (state == NavigatorStates.Map) {
                   return MapPage();
                 }
@@ -83,7 +83,7 @@ class _HomePageViewState extends State<HomePageView> {
               listener: (context, state) {},
               builder: (context, state) {
                 if (state is MapMarkerIsTouched) {
-                  return PlaceBottomSheet();
+                  return PlaceBottomSheet(state.place);
                 }
                 return Container();
               },

@@ -57,7 +57,7 @@ class PlaceTitle extends StatelessWidget {
                 width: 8.height,
               ),
               Text(
-                place.shortAdress,
+                place.city,
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 12.height,
