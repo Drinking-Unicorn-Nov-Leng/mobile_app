@@ -37,7 +37,7 @@ class MapButton extends StatelessWidget {
         child: Center(
           child: SvgPicture.asset(
             iconPath,
-            color: AppColors.darkRed,
+            color: Color(0xff3A4A61),
           ),
         ),
       ),

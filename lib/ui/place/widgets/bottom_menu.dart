@@ -9,7 +9,7 @@ class BottomMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 63,
+      height: 63.height,
       padding: EdgeInsets.symmetric(
         horizontal: 23.width,
       ),

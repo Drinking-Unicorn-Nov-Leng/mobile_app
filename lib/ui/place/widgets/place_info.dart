@@ -31,6 +31,10 @@ class PlaceInfo extends StatelessWidget {
           data: "${place.location.latitude} ,${place.location.longitude}",
           iconPath: 'assets/geo_icon.svg',
         ),
+        Container(
+          height: 1,
+          color: Color(0xffE6E6EB),
+        ),
       ],
     );
   }

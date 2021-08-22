@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 
 class ClientProvider {
-  Dio getClient() {
+  static Dio getClient() {
     final option = BaseOptions(
-      baseUrl: '',
+      baseUrl: 'http://95.142.47.217',
       connectTimeout: 5000,
     );
     final client = Dio(option);

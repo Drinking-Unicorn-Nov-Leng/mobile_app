@@ -2,24 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobile_app/domain/map/map_service.dart';
+import 'package:mobile_app/repository/place/place_repository.dart';
 import 'package:mobile_app/ui/map/cubit/map_cubit.dart';
 import 'package:mobile_app/ui/map/widgets/map_button.dart';
 import 'package:mobile_app/utils/config.dart';
 import 'package:mobile_app/utils/responsive_size.dart';
+import 'package:provider/provider.dart';
 
 import 'cubit/category_cubit.dart';
 import 'widgets/category_bottom,_sheet.dart';
 
 class MapPage extends StatelessWidget {
-  MapService mapService;
-
-  MapPage() : mapService = getIt.get<MapService>();
+  MapPage();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CategoryCubit(),
-      child: MapPageView(mapService),
+      child: ChangeNotifierProvider(
+        create: (_) => MapService(context, PlaceRepository()),
+        child: Consumer<MapService>(
+          builder: (_, c, __) => MapPageView(c),
+        ),
+      ),
     );
   }
 }
@@ -76,7 +81,7 @@ class MapPageView extends StatelessWidget {
         ),
       ),
     ];
-
+    mapService.context = context;
     return Stack(
       children: [
         GoogleMap(
@@ -86,7 +91,7 @@ class MapPageView extends StatelessWidget {
           onTap: (q) {
             context.read<MapCubit>().markerIsUntouched();
           },
-          markers: mapService.getMarkers(context),
+          markers: mapService.markers,
           initialCameraPosition: mapService.initialCameraPosition(),
         ),
         ...buttons,

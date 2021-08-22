@@ -8,11 +8,14 @@ part 'map_state.dart';
 class MapCubit extends Cubit<MapState> {
   MapService mapService;
 
+  String placeId = '-1';
+
   MapCubit(
     this.mapService,
   ) : super(MapInitial());
 
   void markerIsTouched(String placeId) {
+    this.placeId = placeId;
     emit(MapMarkerIsTouched(placeId));
   }
 

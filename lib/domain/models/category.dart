@@ -1,7 +1,7 @@
 class Category {
   final String iconPath;
   bool isActive;
-  final String name;
+  String name;
 
   Category({
     required this.iconPath,

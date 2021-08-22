@@ -59,7 +59,7 @@ class FlyingBavigationBar extends StatelessWidget {
                     SvgPicture.asset(
                       iconPaths[index],
                       color: index == currentIndex
-                          ? AppColors.darkRed
+                          ? Color(0xffEC1E1E)
                           : Color(0xffC4C4CC),
                     ),
                     Spacer(),
@@ -68,7 +68,7 @@ class FlyingBavigationBar extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: index == currentIndex
-                            ? AppColors.darkRed
+                            ? Color(0xffEC1E1E)
                             : Color(0xffC4C4CC),
                       ),
                     ),

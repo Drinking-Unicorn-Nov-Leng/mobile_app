@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_app/domain/map/map_service.dart';
+import 'package:mobile_app/repository/place/place_repository.dart';
 import 'package:mobile_app/ui/home/cubit/navigator_cubit.dart';
 import 'package:mobile_app/ui/home/widgets/flying_navigation_bar.dart';
 import 'package:mobile_app/ui/map/cubit/map_cubit.dart';
@@ -20,7 +21,12 @@ class HomePage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => MapCubit(MapService()),
+          create: (context) => MapCubit(
+            MapService(
+              context,
+              PlaceRepository(),
+            ),
+          ),
         ),
         BlocProvider(
           create: (context) => NavigatorCubit(),
@@ -42,7 +48,6 @@ class _HomePageViewState extends State<HomePageView> {
   @override
   void initState() {
     super.initState();
-    getIt.registerSingleton<MapService>(MapService());
   }
 
   @override

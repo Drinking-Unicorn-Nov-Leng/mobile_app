@@ -5,13 +5,47 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobile_app/domain/models/place.dart';
+import 'package:mobile_app/repository/place/place_repository.dart';
 import 'package:mobile_app/ui/map/cubit/map_cubit.dart';
 import 'package:provider/provider.dart';
+import 'package:mobile_app/utils/responsive_size.dart';
 
-class MapService {
+class MapService with ChangeNotifier {
   List<Place> places = [
+    Place.getBlank()
+      ..category.name = 'Сувениры'
+      ..id = "12331"
+      ..location = LatLng(58.540109, 31.305476),
+    Place.getBlank()
+      ..category.name = 'Памятники'
+      ..id = "12"
+      ..location = LatLng(58.557608, 31.260780),
     Place.getBlank(),
   ];
+
+  PlaceRepository placeRepository;
+
+  BuildContext context;
+
+  MapService(this.context, this.placeRepository) {
+    setUpMarkers();
+    _fetchPlaces();
+  }
+
+  Future<void> _fetchPlaces() async {
+    places = await placeRepository.getAllPlaces();
+  }
+
+  late BitmapDescriptor souvenirsDisable;
+  late BitmapDescriptor souvenirsActive;
+
+  late BitmapDescriptor museumDisable;
+  late BitmapDescriptor museumActive;
+
+  late BitmapDescriptor monumentDisable;
+  late BitmapDescriptor monumentActive;
+
+  Set<Marker> markers = {};
 
   late GoogleMapController _controller;
 
@@ -29,24 +63,68 @@ class MapService {
 
   CameraPosition initialCameraPosition() {
     return CameraPosition(
-      target: LatLng(46.20145993657801, 6.145976348541012),
-      zoom: 7,
+      target: LatLng(58.534363, 31.261617),
+      zoom: 12,
     );
   }
 
-  Set<Marker> getMarkers(BuildContext context) {
-    return places
+  Future<void> setUpMarkers() async {
+    souvenirsActive = BitmapDescriptor.fromBytes(
+      await _convertAssetToBytes(
+          'assets/souvenirs_map_active_icon.png', 100.width.toInt()),
+    );
+    souvenirsDisable = BitmapDescriptor.fromBytes(
+      await _convertAssetToBytes(
+          'assets/souvenirs_map_disabled_icon.png', 100.width.toInt()),
+    );
+
+    museumActive = BitmapDescriptor.fromBytes(
+      await _convertAssetToBytes(
+          'assets/museum_map_active_icon.png', 100.width.toInt()),
+    );
+    museumDisable = BitmapDescriptor.fromBytes(
+      await _convertAssetToBytes(
+          'assets/museum_map_disabled_icon.png', 100.width.toInt()),
+    );
+
+    monumentActive = BitmapDescriptor.fromBytes(
+      await _convertAssetToBytes(
+          'assets/monument_map_active_icon.png', 100.width.toInt()),
+    );
+    monumentDisable = BitmapDescriptor.fromBytes(
+      await _convertAssetToBytes(
+          'assets/monument_map_disabled_icon.png', 100.width.toInt()),
+    );
+
+    markers = places
         .map(
           (e) => Marker(
             markerId: MarkerId(e.id),
             onTap: () {
+              setUpMarkers();
               context.read<MapCubit>().markerIsTouched(e.id);
             },
-            icon: BitmapDescriptor.defaultMarker,
-            position: LatLng(46.20145993657801, 6.145976348541012),
+            icon: _getIconFromPlace(e),
+            position: e.location,
           ),
         )
         .toSet();
+    notifyListeners();
+  }
+
+  BitmapDescriptor _getIconFromPlace(Place e) {
+    var placeId;
+    try {
+      placeId = context.read<MapCubit>().placeId;
+    } on Exception catch (e) {
+      placeId = -1;
+    }
+    if (e.category.name == 'Сувениры') {
+      return placeId == e.id ? souvenirsActive : souvenirsDisable;
+    } else if (e.category.name == 'Памятники') {
+      return placeId == e.id ? monumentActive : monumentDisable;
+    }
+    return placeId == e.id ? museumActive : museumDisable;
   }
 
   Future<Uint8List> _convertAssetToBytes(String path, int width) async {
