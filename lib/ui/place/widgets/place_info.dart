@@ -16,19 +16,19 @@ class PlaceInfo extends StatelessWidget {
           color: Color(0xffE6E6EB),
         ),
         PlaceInfoTitle(
-          data: place.adress,
+          data: place.adress ?? 'Московская область',
           iconPath: 'assets/place_icon.svg',
         ),
         PlaceInfoTitle(
-          data: place.phone,
+          data: place.phone ?? '89518223545',
           iconPath: 'assets/phone_icon.svg',
         ),
         PlaceInfoTitle(
-          data: place.site,
+          data: place.site ?? 'xyz.com',
           iconPath: 'assets/web_icon.svg',
         ),
         PlaceInfoTitle(
-          data: "${place.location.latitude} ,${place.location.longitude}",
+          data: "${place.location!.latitude} ,${place.location!.longitude}",
           iconPath: 'assets/geo_icon.svg',
         ),
         Container(

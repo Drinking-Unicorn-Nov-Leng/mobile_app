@@ -18,12 +18,12 @@ class MapService with ChangeNotifier {
   BuildContext context;
 
   MapService(this.context, this.placeRepository) {
-    setUpMarkers();
     _fetchPlaces();
   }
 
   Future<void> _fetchPlaces() async {
     places = await placeRepository.getAllPlaces();
+    setUpMarkers();
   }
 
   late BitmapDescriptor souvenirsDisable;
@@ -95,7 +95,7 @@ class MapService with ChangeNotifier {
               context.read<MapCubit>().markerIsTouched(e.id);
             },
             icon: _getIconFromPlace(e),
-            position: e.location,
+            position: e.location!,
           ),
         )
         .toSet();
@@ -109,9 +109,9 @@ class MapService with ChangeNotifier {
     } on Exception catch (e) {
       placeId = -1;
     }
-    if (e.category.name == 'Сувениры') {
+    if (e.category!.name == 'Сувениры') {
       return placeId == e.id ? souvenirsActive : souvenirsDisable;
-    } else if (e.category.name == 'Памятники') {
+    } else if (e.category!.name == 'Памятники') {
       return placeId == e.id ? monumentActive : monumentDisable;
     }
     return placeId == e.id ? museumActive : museumDisable;

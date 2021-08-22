@@ -19,7 +19,7 @@ class Tour {
   Tour.getBlank()
       : id = '1',
         avatar =
-            'https://static.wikia.nocookie.net/avatar/images/f/f4/3%D1%8521_%D0%90%D0%B0%D0%BD%D0%B3.jpg/revision/latest?cb=20210125213454&path-prefix=ru',
+            'https://www.bileter.ru/data/shows_logos/S/E/ajpQZ-FT95GjdzUYklpQ7f6X26N2baGl.jpg',
         name = 'Дорога на мельницу',
         description =
             'Увлекательное путешествие по Ильменьскому Поозерью. Главная цель—посещение музея Мельницы в деревне Завал.',

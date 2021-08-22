@@ -35,7 +35,7 @@ class PlaceSecription extends StatelessWidget {
             bottom: 24.height,
           ),
           child: Text(
-            place.description,
+            place.description ?? '',
             style: TextStyle(
               color: Colors.black,
               fontSize: 12.height,

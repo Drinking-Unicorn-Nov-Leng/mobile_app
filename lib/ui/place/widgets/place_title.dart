@@ -39,7 +39,7 @@ class PlaceTitle extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                place.category.name,
+                place.category!.name,
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 12.height,
@@ -57,7 +57,7 @@ class PlaceTitle extends StatelessWidget {
                 width: 8.height,
               ),
               Text(
-                place.city,
+                place.city ?? 'Нижний новгород',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 12.height,
@@ -109,7 +109,7 @@ class PlaceTitle extends StatelessWidget {
             horizontal: 14.width,
           ),
           child: Text(
-            place.shortDescription,
+            place.shortDescription ?? '',
             style: TextStyle(
               fontSize: 12.height,
             ),

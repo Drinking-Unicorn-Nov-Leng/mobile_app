@@ -36,14 +36,15 @@ class TourPage extends StatelessWidget {
       ),
       body: ChangeNotifierProvider(
         create: (context) => TourMapService(tour.places, context),
-        builder: (_, __) => TourPageView(),
+        builder: (_, __) => TourPageView(tour),
       ),
     );
   }
 }
 
 class TourPageView extends StatelessWidget {
-  const TourPageView({Key? key}) : super(key: key);
+  final Tour tour;
+  const TourPageView(this.tour);
 
   @override
   Widget build(BuildContext context) {
@@ -87,10 +88,86 @@ class TourPageView extends StatelessWidget {
           onTap: (q) {
             // context.read<MapCubit>().markerIsUntouched();
           },
+          polylines: {
+            Polyline(
+              polylineId: PolylineId('123'),
+              color: Color(0xff4CF184),
+              width: 10,
+              points: mapService.path
+                  .map((e) => LatLng(e.latitude, e.longitude))
+                  .toList(),
+            ),
+          },
           markers: mapService.markers,
           initialCameraPosition: mapService.initialCameraPosition(),
         ),
         ...buttons,
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: BottomSheet(
+            backgroundColor: Colors.transparent,
+            onClosing: () {},
+            builder: (contxet) {
+              return Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16),
+                  ),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      height: 12.height,
+                    ),
+                    Container(
+                      height: 4.height,
+                      width: 20.width,
+                      decoration: BoxDecoration(
+                        color: Color(0xffDDDDE0),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 12.height,
+                    ),
+                    Text(
+                      tour.name,
+                      style: TextStyle(
+                        fontFamily: 'Nizh',
+                        fontSize: 32.height,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 16.height,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 42.width,
+                      ),
+                      child: Text(
+                        tour.description,
+                        style: TextStyle(
+                          fontSize: 14.height,
+                          color: Colors.black,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 16.height,
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
       ],
     );
   }

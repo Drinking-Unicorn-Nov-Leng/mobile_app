@@ -5,17 +5,17 @@ import 'package:mobile_app/domain/models/category.dart';
 class Place {
   String id;
   String name;
-  String shortDescription;
-  String description;
-  String phone;
-  String site;
-  String city;
-  String adress;
-  LatLng location;
-  Category category;
+  String? shortDescription;
+  String? description;
+  String? phone;
+  String? site;
+  String? city;
+  String? adress;
+  LatLng? location;
+  Category? category;
   List<String> photoUrls;
-  String audioGidUrl;
-  String audioStoryUrl;
+  String? audioGidUrl;
+  String? audioStoryUrl;
 
   Place({
     required this.id,
@@ -56,7 +56,7 @@ class Place {
         name = "МУЗЕЙ ТЁСОВСКОЙ УЗКОКОЛЕЙНОЙ ЖЕЛЕЗНОЙ ДОРОГИ",
         phone = "+7 (905) 207-75-83",
         photoUrls = [
-          "https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg",
+          "https://novgorodcard.ru/vn/upload/information_system_25/1/6/2/item_1626/item_1626.jpg",
           "https://nacion.ru/assets/i/ai/4/7/8/i/3287622.jpg",
           "https://media.macphun.com/img/uploads/customer/how-to/579/15531840725c93b5489d84e9.43781620.jpg?q=85&w=1340",
         ],

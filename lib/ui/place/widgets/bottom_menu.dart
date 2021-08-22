@@ -1,10 +1,27 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mobile_app/domain/models/place.dart';
 import 'package:mobile_app/ui/place/widgets/menu_button.dart';
 import 'package:mobile_app/utils/responsive_size.dart';
 
-class BottomMenu extends StatelessWidget {
-  const BottomMenu({Key? key}) : super(key: key);
+class BottomMenu extends StatefulWidget {
+  final Place place;
+  const BottomMenu(this.place);
+
+  @override
+  _BottomMenuState createState() => _BottomMenuState();
+}
+
+class _BottomMenuState extends State<BottomMenu> {
+  late AudioPlayer audioPlayer;
+  @override
+  void initState() {
+    super.initState();
+    audioPlayer = AudioPlayer();
+  }
+
+  bool isPlaying = false;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +83,22 @@ class BottomMenu extends StatelessWidget {
               'assets/play_icon.svg',
               color: Color(0xffF6C648),
             ),
-            onTap: () {},
+            onTap: () async {
+              if (isPlaying) {
+                await audioPlayer.pause();
+                setState(() {
+                  isPlaying = false;
+                });
+              } else {
+                if (widget.place.audioStoryUrl != null) {
+                  await audioPlayer.play(widget.place.audioStoryUrl!);
+
+                  setState(() {
+                    isPlaying = true;
+                  });
+                }
+              }
+            },
           ),
           MenuButton(
             backgroundColor: Colors.white,

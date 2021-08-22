@@ -51,7 +51,7 @@ class PlaceBottomSheet extends StatelessWidget {
                   bottom: 0,
                   right: 0,
                   left: 0,
-                  child: BottomMenu(),
+                  child: BottomMenu(place),
                 ),
               ],
             ),

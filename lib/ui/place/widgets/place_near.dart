@@ -97,7 +97,7 @@ class PlaceNear extends StatelessWidget {
                                       color: Color(0xff8A8A93),
                                     ),
                                     Text(
-                                      e.city,
+                                      e.city ?? 'Нижний новгород',
                                       style: TextStyle(
                                         color: Color(0xff8A8A93),
                                         fontSize: 13.height,

@@ -13,14 +13,17 @@ class PlaceRepository {
   PlaceRepository();
 
   Future<List<Place>> getAllPlaces() async {
-    final response = await client.get(':4050/map/Place/all/full-data');
+    final response = await client.get(':4050/map/Place/all/full-data?Take=500');
     final places = <Place>[];
     for (var item in response.data) {
-      if (item['coordinates']['lat'] > 100 || item['coordinates']['lat'] == 0) {
+      if (item['coordinates']['lat'] > 100 ||
+          item['coordinates']['lat'] == 0 ||
+          item['coordinates']['lat'] < 20) {
         continue;
       }
       places.add(await parser.transform(item));
     }
+    print(places.length);
     return places;
   }
 }
