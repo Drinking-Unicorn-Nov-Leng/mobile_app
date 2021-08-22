@@ -8,7 +8,7 @@
  - Архитектура BloC
 
 ## Развертывание
- 1. Скачать Flutter SDK с [официального сайта]{https://flutter.dev/docs/get-started/install}
+ 1. Скачать Flutter SDK с [официального сайта](https://flutter.dev/docs/get-started/install)
  2. Установка Android Studio для удобного создания эмулятора
  3. Клонирование проекта на компьютер
  4. С помощью команды flutter pub get подтягиваете все зависимости
